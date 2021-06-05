@@ -1,8 +1,15 @@
 import React from "react";
-import { Platform, SafeAreaView, View, StatusBar } from "react-native";
+import {
+  Platform,
+  SafeAreaView,
+  View,
+  StatusBar,
+  FlatList,
+} from "react-native";
 import { Searchbar } from "react-native-paper";
 import styled from "styled-components";
-import { RestaurantInfo } from "../components/restaurant-info-card.component";
+import { Spacer } from "../../../components/spacer/spacer.component";
+import { RestaurantInfoCard } from "../components/restaurant-info-card.component";
 
 const isAndroid = Platform.OS === "android";
 
@@ -13,19 +20,39 @@ const SafeArea = styled(SafeAreaView)`
 const SearchContainer = styled(View)`
   padding: ${(props) => props.theme.space[3]};
 `;
-const RestaurantListContainer = styled(View)`
-  flex: 1;
-  padding: ${(props) => props.theme.space[3]};
-  background-color: ${(props) => props.theme.colors.ui.quaternary};
-`;
+
+const RestaurantsList = styled(FlatList).attrs({
+  contentContainerStyle: {
+    padding: 16,
+  },
+})``;
 
 export const RestaurantsScreen = () => (
   <SafeArea>
     <SearchContainer>
       <Searchbar />
     </SearchContainer>
-    <RestaurantListContainer>
-      <RestaurantInfo />
-    </RestaurantListContainer>
+    <RestaurantsList
+      data={[
+        { name: 1 },
+        { name: 2 },
+        { name: 3 },
+        { name: 4 },
+        { name: 5 },
+        { name: 6 },
+        { name: 7 },
+        { name: 8 },
+        { name: 9 },
+        { name: 10 },
+      ]}
+      renderItem={() => (
+        <>
+          <Spacer position="bottom" size="large">
+            <RestaurantInfoCard />
+          </Spacer>
+        </>
+      )}
+      keyExtractor={(item) => item.name}
+    />
   </SafeArea>
 );

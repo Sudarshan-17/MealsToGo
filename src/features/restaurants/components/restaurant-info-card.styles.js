@@ -7,12 +7,12 @@ export const Icon = styled.Image`
 `;
 
 export const RestaurantCard = styled(Card)`
-  background-color: ${(props) => props.theme.colors.ui.quaternary};
+  background-color: ${(props) => props.theme.colors.bg.primary};
 `;
 
 export const RestaurantCardCover = styled(Card.Cover)`
-  padding: 20px;
-  background-color: ${(props) => props.theme.colors.ui.quaternary};
+  padding: ${(props) => props.theme.space[3]};
+  background-color: ${(props) => props.theme.colors.bg.primary};
 `;
 
 export const Info = styled.View`
