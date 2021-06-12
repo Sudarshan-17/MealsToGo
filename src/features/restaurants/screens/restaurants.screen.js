@@ -1,16 +1,13 @@
 import React, { useContext } from "react";
-import { View, FlatList } from "react-native";
-import { Searchbar } from "react-native-paper";
+import { FlatList } from "react-native";
+import { ActivityIndicator, Colors } from "react-native-paper";
 import styled from "styled-components";
 
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { RestaurantContext } from "../../../services/restaurants/restaurants.context";
 import { RestaurantInfoCard } from "../components/restaurant-info-card.component";
-
-const SearchContainer = styled(View)`
-  padding: ${(props) => props.theme.space[3]};
-`;
+import { Search } from "../components/search.component";
 
 const RestaurantsList = styled(FlatList).attrs({
   contentContainerStyle: {
@@ -18,13 +15,26 @@ const RestaurantsList = styled(FlatList).attrs({
   },
 })``;
 
+const Loading = styled(ActivityIndicator)`
+  margin-left: -25px;
+`;
+
+const LoadingContainer = styled.View`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+`;
+
 export const RestaurantsScreen = () => {
   const { isLoading, error, restaurants } = useContext(RestaurantContext);
   return (
     <SafeArea>
-      <SearchContainer>
-        <Searchbar />
-      </SearchContainer>
+      {isLoading && (
+        <LoadingContainer>
+          <Loading size={50} animating={true} color={Colors.blue300} />
+        </LoadingContainer>
+      )}
+      <Search />
       <RestaurantsList
         data={restaurants}
         renderItem={({ item }) => {
